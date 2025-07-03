@@ -1,0 +1,2 @@
+// A simple fallback image for products
+export default '';
