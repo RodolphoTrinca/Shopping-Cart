@@ -8,5 +8,6 @@ export async function fetchProductsFromApi(): Promise<Product[]> {
 		name: item.title,
 		price: item.price,
 		image: item.image,
+		description: item.description,
 	}));
 }
