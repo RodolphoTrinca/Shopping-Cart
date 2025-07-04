@@ -29,9 +29,9 @@ export default function CartPage() {
             ))}
             <div className="text-right font-semibold mt-4">Total: ${total.toFixed(2)}</div>
             <div className="flex justify-center items-center min-h-[120px]">
-              <Link href="/checkout">
+              <Link href="/">
                 <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
-                  Proceed to Checkout
+                  Continue Shopping
                 </button>
               </Link>
             </div>
