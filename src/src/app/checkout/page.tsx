@@ -4,6 +4,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
+import CartItem from '../../components/CartItem';
 
 export default function CheckoutPage() {
   const { state, dispatch } = useCart();
@@ -26,17 +27,23 @@ export default function CheckoutPage() {
             <ul>
               {state.items.map((item) => (
                 <li key={item.id} className="mb-2">
-                  {item.name} x {item.quantity} - ${item.price.toFixed(2)}
+                  <CartItem
+                    item={item}
+                    onRemove={() => {}}
+                    onUpdateQuantity={() => {}}
+                  />
                 </li>
               ))}
             </ul>
             <div className="text-right font-semibold mt-4">Total: ${total.toFixed(2)}</div>
-            <button
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-              onClick={handleCheckout}
-            >
-              Confirm Purchase
-            </button>
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-10 z-50">
+              <button
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg shadow-lg"
+                onClick={handleCheckout}
+              >
+                Confirm Purchase
+              </button>
+            </div>
           </div>
         )}
       </main>

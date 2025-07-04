@@ -11,6 +11,7 @@ export default function Header({ onSearch }: HeaderProps) {
   const { state } = useCart();
   const cartCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const isMainPage = typeof window !== 'undefined' && window.location.pathname === '/';
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -30,22 +31,24 @@ export default function Header({ onSearch }: HeaderProps) {
       <Link href="/" className="mr-6 hover:underline">
         <h1 className="text-2xl font-bold">Shopping Cart</h1>
       </Link>
-      <div className="flex-1 flex justify-center">
-        <div className="relative w-full max-w-xs">
-          <input
-            type="text"
-            value={search}
-            onChange={handleChange}
-            placeholder="Search products..."
-            className="w-full px-3 py-1 rounded-full border border-gray-300 text-gray-900 bg-white focus:outline-none pr-10"
-          />
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
-            </svg>
-          </span>
+      {isMainPage && (
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-full max-w-xs">
+            <input
+              type="text"
+              value={search}
+              onChange={handleChange}
+              placeholder="Search products..."
+              className="w-full px-3 py-1 rounded-full border border-gray-300 text-gray-900 bg-white focus:outline-none pr-10"
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+              </svg>
+            </span>
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex items-center gap-4 relative">
         <button
           className="flex items-center gap-1 px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white text-sm focus:outline-none"

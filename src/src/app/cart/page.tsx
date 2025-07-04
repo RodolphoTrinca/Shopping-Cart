@@ -13,7 +13,7 @@ export default function CartPage() {
   return (
     <div>
       <Header />
-      <main className="max-w-2xl mx-auto p-4">
+      <main className="max-w-4xl mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
         {state.items.length === 0 ? (
           <p>Your cart is empty.</p>
@@ -28,11 +28,13 @@ export default function CartPage() {
               />
             ))}
             <div className="text-right font-semibold mt-4">Total: ${total.toFixed(2)}</div>
-            <Link href="/checkout">
-              <button className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                Proceed to Checkout
-              </button>
-            </Link>
+            <div className="flex justify-center items-center min-h-[120px]">
+              <Link href="/checkout">
+                <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                  Proceed to Checkout
+                </button>
+              </Link>
+            </div>
           </div>
         )}
       </main>
