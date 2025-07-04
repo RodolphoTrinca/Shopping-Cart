@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard";
 import { useCart, Product } from "../context/CartContext";
 import React, { useState, useEffect } from "react";
 import { fetchProductsFromApi } from "../services/productService";
+import Link from "next/link";
 
 export default function Home() {
 	const { dispatch } = useCart();
@@ -14,7 +15,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [visibleCount, setVisibleCount] = useState(3);
-	const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+	const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
 	useEffect(() => {
 		async function fetchProducts() {
@@ -51,7 +52,6 @@ export default function Home() {
 			<main className="pt-16 max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-160 lg:mt-80">
 				{visibleProducts.map((product) => (
 					<ProductCard
-						key={product.id}
 						product={product}
 						onAddToCart={handleAddToCart}
 					/>
