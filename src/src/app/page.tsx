@@ -34,10 +34,13 @@ export default function Home() {
 		dispatch({ type: "ADD_ITEM", product });
 	}
 
-	const filtered = products.filter((p) =>
-		p.name.toLowerCase().includes(query.toLowerCase())
-	);
-	const visibleProducts = filtered.slice(0, visibleCount);
+	// Only consider products that are visible on screen for filtering
+	let visibleProducts = products.slice(0, visibleCount);
+	if (query) {
+		visibleProducts = visibleProducts.filter((p) =>
+			p.name.toLowerCase().includes(query.toLowerCase())
+		);
+	}
 
 	if (loading) return <div className="text-center mt-20">Loading products...</div>;
 	if (error) return <div className="text-center mt-20 text-red-500">{error}</div>;
@@ -45,7 +48,7 @@ export default function Home() {
 	return (
 		<div className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? 'bg-gray-950' : 'bg-white'}`}>
 			<Header onSearch={setQuery} />
-			<main className="pt-16 max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6 mt-70">
+			<main className="pt-16 max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-160 lg:mt-80">
 				{visibleProducts.map((product) => (
 					<ProductCard
 						key={product.id}
@@ -53,7 +56,7 @@ export default function Home() {
 						onAddToCart={handleAddToCart}
 					/>
 				))}
-				{visibleCount < filtered.length && (
+				{visibleCount < products.length && (
 					<div className="col-span-full flex justify-center mt-4">
 						<button
 							className="flex items-center justify-center gap-2 w-full md:w-[220px] px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
