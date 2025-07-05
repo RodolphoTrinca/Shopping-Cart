@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "../context/CartContext";
+import { SearchProvider } from "../context/SearchContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -32,9 +33,11 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <CartProvider>
-          <Header />
+          <SearchProvider>
+            <Header />
             {children}
-          <Footer />
+            <Footer />
+          </SearchProvider>
         </CartProvider>
       </body>
     </html>

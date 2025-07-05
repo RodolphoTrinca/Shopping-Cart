@@ -3,17 +3,18 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { useCart, Product } from "../context/CartContext";
+import { useSearch } from "../context/SearchContext";
 import { fetchProductsFromApi } from "../services/productService";
 import LoadingScreen from "../components/LoadingScreen";
 import ErrorScreen from "../components/ErrorScreen";
 
 export default function Home() {
 	const { dispatch } = useCart();
+	const { query } = useSearch();
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [visibleCount, setVisibleCount] = useState(3);
-	const [query, setQuery] = useState("");
 
 	useEffect(() => {
 		fetchProductsFromApi()
