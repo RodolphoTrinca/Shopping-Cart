@@ -27,7 +27,12 @@ export default function Header({ onSearch }: HeaderProps) {
   return (
     <header>
       <nav className="px-6 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 shadow bg-black text-white">
-        <Link href="/" className="mr-6 hover:underline">
+        <Link href="/" className="mr-6 hover:underline flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#a855f7" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#7c3aed" className="h-8 w-8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437m0 0L6.75 9.75m-1.644-4.478h13.788c.977 0 1.651.97 1.337 1.893l-2.25 6.75A1.125 1.125 0 0116 15.75H8.25a1.125 1.125 0 01-1.087-.835L4.065 5.272zm0 0L3.11 2.362A.563.563 0 002.25 2.25m0 0v0" />
+            <circle cx="9" cy="20" r="1.25" />
+            <circle cx="15" cy="20" r="1.25" />
+          </svg>
           <h1 className="text-2xl font-bold">Shopping Cart</h1>
         </Link>
         {isMainPage && (
