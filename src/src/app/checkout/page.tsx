@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Header from '../../components/Header';
 import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 import CartItem from '../../components/CartItem';
@@ -17,7 +16,6 @@ export default function CheckoutPage() {
 
   return (
     <div>
-      <Header />
       <main className="max-w-2xl mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Checkout</h2>
         {state.items.length === 0 ? (

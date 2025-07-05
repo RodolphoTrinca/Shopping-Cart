@@ -1,12 +1,9 @@
 'use client';
 
-import Image from "next/image";
-import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import { useCart, Product } from "../context/CartContext";
 import React, { useState, useEffect } from "react";
 import { fetchProductsFromApi } from "../services/productService";
-import Link from "next/link";
 
 export default function Home() {
 	const { dispatch } = useCart();
@@ -39,7 +36,7 @@ export default function Home() {
 	let visibleProducts = products.slice(0, visibleCount);
 	if (query) {
 		visibleProducts = visibleProducts.filter((p) =>
-			p.name.toLowerCase().includes(query.toLowerCase())
+			p.title.toLowerCase().includes(query.toLowerCase())
 		);
 	}
 
@@ -48,10 +45,10 @@ export default function Home() {
 
 	return (
 		<div className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? 'bg-gray-950' : 'bg-white'}`}>
-			<Header onSearch={setQuery} />
-			<main className="pt-16 max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-160 lg:mt-80">
+			<main className="pt-16 max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-160 lg:mt-120">
 				{visibleProducts.map((product) => (
 					<ProductCard
+						key={product.id}
 						product={product}
 						onAddToCart={handleAddToCart}
 					/>
@@ -71,11 +68,6 @@ export default function Home() {
 					</div>
 				)}
 			</main>
-			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-				<p className="text-sm text-gray-500 dark:text-gray-400">
-					© {new Date().getFullYear()} Shopping Cart. All rights reserved.
-				</p>
-			</footer>
 		</div>
 	);
 }

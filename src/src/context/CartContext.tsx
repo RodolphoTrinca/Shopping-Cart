@@ -4,11 +4,24 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
 export type Product = {
   id: string;
-  name: string;
+  title: string;
   price: number;
-  image: string;
+  images: string[];
   description: string;
+  rating?: Rating;
+  colors?: Color[];
+  keyFeatures: string[];
 };
+
+export type Color = {
+  name: string;
+  hex: string;
+}
+
+export type Rating = {
+  rate: number;
+  count: number;
+}
 
 export type CartItem = Product & { quantity: number };
 

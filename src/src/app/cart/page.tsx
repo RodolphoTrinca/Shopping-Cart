@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Header from '../../components/Header';
 import CartItem from '../../components/CartItem';
 import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
@@ -12,8 +11,7 @@ export default function CartPage() {
 
   return (
     <div>
-      <Header />
-      <main className="max-w-4xl mx-auto p-4">
+      <main className="max-w-4xl mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
         {state.items.length === 0 ? (
           <p>Your cart is empty.</p>

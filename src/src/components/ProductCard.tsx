@@ -22,8 +22,8 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
       <div className="relative w-full flex-1 flex items-center justify-center mb-4 overflow-hidden" style={{ minHeight: '60%', height: '60%' }}>
         <Link key={product.id} href={`/product/${product.id}`}>
             <img
-              src={product.image}
-              alt={product.name}
+              src={product.images.indexOf(product.images[0]) !== -1 ? product.images[0] : '/fallback.jpg'}
+              alt={product.title}
               className="w-full h-full object-contain bg-gray-100 rounded transition-all duration-200"
               style={{ display: 'block', width: '100%', height: '100%' }}
               onError={e => (e.currentTarget.src = '/fallback.jpg')}
@@ -33,7 +33,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             </span>
         </Link>
       </div>
-      <h5 className="text-md font-semibold mb-1 text-center line-clamp-2 min-h-[48px]">{product.name}</h5>
+      <h5 className="text-md font-semibold mb-1 text-center line-clamp-2 min-h-[48px]">{product.title}</h5>
       <p className="text-gray-600 dark:text-gray-300 text-sm text-center mb-2 line-clamp-2 min-h-[36px]">{product.description}</p>
       <AddToCartButton added={added} onClick={handleClick} />
     </div>
