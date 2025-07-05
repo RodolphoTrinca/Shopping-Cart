@@ -1,37 +1,31 @@
-'use client';
+"use client";
 
+import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { useCart, Product } from "../context/CartContext";
-import React, { useState, useEffect } from "react";
 import { fetchProductsFromApi } from "../services/productService";
+import LoadingScreen from "../components/LoadingScreen";
+import ErrorScreen from "../components/ErrorScreen";
 
 export default function Home() {
 	const { dispatch } = useCart();
-	const [query, setQuery] = useState("");
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [visibleCount, setVisibleCount] = useState(3);
+	const [query, setQuery] = useState("");
 
 	useEffect(() => {
-		async function fetchProducts() {
-			try {
-				const mapped = await fetchProductsFromApi();
-				setProducts(mapped);
-			} catch (err: any) {
-				setError(err.message || "Unknown error");
-			} finally {
-				setLoading(false);
-			}
-		}
-		fetchProducts();
+		fetchProductsFromApi()
+			.then(setProducts)
+			.catch((err) => setError(err.message || "Unknown error"))
+			.finally(() => setLoading(false));
 	}, []);
 
 	function handleAddToCart(product: Product) {
 		dispatch({ type: "ADD_ITEM", product });
 	}
 
-	// Only consider products that are visible on screen for filtering
 	let visibleProducts = products.slice(0, visibleCount);
 	if (query) {
 		visibleProducts = visibleProducts.filter((p) =>
@@ -39,21 +33,25 @@ export default function Home() {
 		);
 	}
 
-	if (loading) return <div className="text-center mt-20">Loading products...</div>;
-	if (error) return <div className="text-center mt-20 text-red-500">{error}</div>;
+	if (loading) 
+		return <LoadingScreen />;
+	if (error)
+		return <ErrorScreen message={error} />;
 
 	return (
-		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gray-200">
-			<main className="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-				{visibleProducts.map((product) => (
-					<ProductCard
-						key={product.id}
-						product={product}
-						onAddToCart={handleAddToCart}
-					/>
-				))}
+		<div className="min-h-screen bg-gray-200 flex flex-col items-center font-[family-name:var(--font-geist-sans)]">
+			<div className="w-full max-w-4xl flex flex-col items-center">
+				<main className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 p-4">
+					{visibleProducts.map((product) => (
+						<ProductCard
+							key={product.id}
+							product={product}
+							onAddToCart={handleAddToCart}
+						/>
+					))}
+				</main>
 				{visibleCount < products.length && (
-					<div className="col-span-full flex justify-center mt-4">
+					<div className="w-full flex justify-center mt-8">
 						<button
 							className="flex items-center justify-center gap-2 w-full md:w-[220px] px-6 py-2 bg-white text-black font-bold rounded-xl hover:bg-gray-300 transition"
 							onClick={() => setVisibleCount((c) => c + 3)}
@@ -66,7 +64,7 @@ export default function Home() {
 						</button>
 					</div>
 				)}
-			</main>
+			</div>
 		</div>
 	);
 }
