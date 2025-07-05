@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { usePathname } from 'next/navigation';
+import { useSearch } from '../context/SearchContext';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -15,8 +16,10 @@ export default function Header({ onSearch }: HeaderProps) {
   const cartCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
   const pathname = usePathname();
   const isMainPage = pathname === "/";
+  const { query, setQuery } = useSearch();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value);
     setSearch(e.target.value);
     if (onSearch) onSearch(e.target.value);
   }
@@ -32,7 +35,7 @@ export default function Header({ onSearch }: HeaderProps) {
             <div className="relative w-full max-w-xs">
               <input
                 type="text"
-                value={search}
+                value={query}
                 onChange={handleChange}
                 placeholder="Search products..."
                 className="w-full px-3 py-1 rounded-full border border-gray-300 text-gray-900 bg-white focus:outline-none pr-10"
