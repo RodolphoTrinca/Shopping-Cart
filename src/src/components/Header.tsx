@@ -34,6 +34,7 @@ export default function Header({ onSearch }: HeaderProps) {
           <div className="flex-1 flex justify-center">
             <div className="relative w-full max-w-xs">
               <input
+                id="searchbox"
                 type="text"
                 value={query}
                 onChange={handleChange}

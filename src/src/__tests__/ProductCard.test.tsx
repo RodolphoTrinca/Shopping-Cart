@@ -25,4 +25,24 @@ describe('ProductCard', () => {
     fireEvent.click(screen.getByRole('button'));
     expect(onAddToCart).toHaveBeenCalledWith(mockProduct);
   });
+
+  it('renders fallback image if images array is empty', () => {
+    const productNoImage = { ...mockProduct, images: [] };
+    render(<ProductCard product={productNoImage} onAddToCart={jest.fn()} />);
+    const img = screen.getByRole('img');
+    expect(img).toHaveAttribute('src', '/fallback.jpg');
+  });
+
+  it('handles long product titles gracefully', () => {
+    const longTitle = 'A'.repeat(200);
+    render(<ProductCard product={{ ...mockProduct, title: longTitle }} onAddToCart={jest.fn()} />);
+    expect(screen.getByText(longTitle)).toBeInTheDocument();
+  });
+
+  it('button is accessible and can be focused', () => {
+    render(<ProductCard product={mockProduct} onAddToCart={jest.fn()} />);
+    const button = screen.getByRole('button');
+    button.focus();
+    expect(button).toHaveFocus();
+  });
 });

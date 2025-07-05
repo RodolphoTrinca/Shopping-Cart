@@ -5,6 +5,7 @@ import CartItemComponent from '../components/CartItem';
 const mockItem = {
   id: '1',
   title: 'Test Item',
+  description: 'desc',
   price: 10,
   quantity: 2,
   images: ['/test.jpg'],
@@ -36,5 +37,52 @@ describe('CartItem', () => {
     );
     fireEvent.click(screen.getByLabelText('Remove item'));
     expect(onRemove).toHaveBeenCalledWith('1');
+  });
+
+  it('handles zero quantity gracefully', () => {
+    render(
+      <CartItemComponent
+        item={{ ...mockItem, quantity: 0 }}
+        onRemove={jest.fn()}
+        onUpdateQuantity={jest.fn()}
+      />
+    );
+    expect(screen.getByDisplayValue('0')).toBeInTheDocument();
+  });
+
+  it('handles negative quantity gracefully', () => {
+    render(
+      <CartItemComponent
+        item={{ ...mockItem, quantity: -5 }}
+        onRemove={jest.fn()}
+        onUpdateQuantity={jest.fn()}
+      />
+    );
+    expect(screen.getByDisplayValue('-5')).toBeInTheDocument();
+  });
+
+  it('renders fallback image if images array is empty', () => {
+    render(
+      <CartItemComponent
+        item={{ ...mockItem, images: [] }}
+        onRemove={jest.fn()}
+        onUpdateQuantity={jest.fn()}
+      />
+    );
+    const img = screen.getByRole('img');
+    expect(img).toHaveAttribute('src', '/fallback.jpg');
+  });
+
+  it('input is accessible and can be focused', () => {
+    render(
+      <CartItemComponent
+        item={mockItem}
+        onRemove={jest.fn()}
+        onUpdateQuantity={jest.fn()}
+      />
+    );
+    const input = screen.getByLabelText(/quantity/i);
+    input.focus();
+    expect(input).toHaveFocus();
   });
 });
