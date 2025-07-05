@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
+import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -12,11 +13,8 @@ export default function Header({ onSearch }: HeaderProps) {
   const [search, setSearch] = useState('');
   const { state } = useCart();
   const cartCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
-  const [isMainPage, setIsMainPage] = useState(false);
-
-  useEffect(() => {
-    setIsMainPage(window.location.pathname === '/');
-  }, []);
+  const pathname = usePathname();
+  const isMainPage = pathname === "/";
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
