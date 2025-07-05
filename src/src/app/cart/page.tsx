@@ -10,13 +10,13 @@ export default function CartPage() {
   const total = state.items.reduce((sum: number, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div>
+    <div className="text-gray-900">
       <main className="max-w-4xl mx-auto p-8">
-        <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">Your Cart</h2>
         {state.items.length === 0 ? (
-          <p>Your cart is empty.</p>
+          <p className="text-gray-700">Your cart is empty.</p>
         ) : (
-          <div>
+          <div className="bg-white rounded-2xl shadow-xl p-6">
             {state.items.map((item) => (
               <CartItem
                 key={item.id}
@@ -25,10 +25,10 @@ export default function CartPage() {
                 onUpdateQuantity={(id: string, quantity: number) => dispatch({ type: 'UPDATE_QUANTITY', id, quantity })}
               />
             ))}
-            <div className="text-right font-semibold mt-4">Total: ${total.toFixed(2)}</div>
+            <div className="text-right font-semibold mt-4 text-gray-900">Total: ${total.toFixed(2)}</div>
             <div className="flex justify-center items-center min-h-[120px]">
               <Link href="/">
-                <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 font-bold">
                   Continue Shopping
                 </button>
               </Link>
