@@ -17,8 +17,8 @@ export default async function ProductDetailsPage(props: ProductPageProps) {
   const keyFeatures = Array.isArray(product.keyFeatures) ? product.keyFeatures : [];
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-10 px-2 flex justify-center items-start">
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl max-w-4xl w-full flex flex-col md:flex-row gap-10 p-8">
+    <div className="min-h-screen py-10 px-2 flex justify-center items-start text-gray-900">
+      <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full flex flex-col md:flex-row gap-10 p-8">
         {/* Left: Images */}
         <div className="flex flex-col gap-4 md:w-1/2">
           <div className="w-full h-80 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
@@ -32,16 +32,16 @@ export default async function ProductDetailsPage(props: ProductPageProps) {
         </div>
         {/* Right: Details */}
         <div className="flex flex-col gap-4 md:w-1/2">
-          <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{product.title}</h2>
+          <h2 className="text-3xl font-bold mb-2 text-gray-900">{product.title}</h2>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-yellow-400 text-lg">★</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium">{product.rating?.rate}</span>
-            <span className="text-gray-400 text-sm">({product.rating?.count} reviews)</span>
+            <span className="text-gray-700 font-medium">{product.rating?.rate}</span>
+            <span className="text-gray-500 text-sm">({product.rating?.count} reviews)</span>
           </div>
           <span className="text-2xl font-semibold text-purple-700 mb-2">USD {product.price.toFixed(2)}</span>
-          <p className="text-gray-600 dark:text-gray-300 text-base mb-4">{product.description}</p>
+          <p className="text-gray-700 text-base mb-4">{product.description}</p>
           <div className="flex flex-col gap-2 mb-4">
-            <label className="font-medium text-gray-700 dark:text-gray-200">Color:</label>
+            <label className="font-medium text-gray-700">Color:</label>
             <div className="flex gap-2">
               {colors.length > 0 ? (
                 colors.map((color: any, idx: number) => (
@@ -58,17 +58,17 @@ export default async function ProductDetailsPage(props: ProductPageProps) {
             </div>
           </div>
           <div className="flex flex-col gap-2 mb-4">
-            <label className="font-medium text-gray-700 dark:text-gray-200">Quantity:</label>
-            <input type="number" min={1} defaultValue={1} className="w-20 px-2 py-1 border rounded focus:outline-none" />
+            <label className="font-medium text-gray-700">Quantity:</label>
+            <input type="number" min={1} defaultValue={1} className="w-20 px-2 py-1 border rounded focus:outline-none text-gray-900" />
           </div>
           <ClientAddToCart product={product} />
           <div className="flex gap-4 mt-4">
-            <button className="flex-1 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Wishlist</button>
-            <button className="flex-1 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Share</button>
+            <button className="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition">Wishlist</button>
+            <button className="flex-1 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition">Share</button>
           </div>
           <div className="mt-6">
-            <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Key Features:</h3>
-            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
+            <h3 className="font-semibold text-lg mb-2 text-gray-900">Key Features:</h3>
+            <ul className="list-disc list-inside text-gray-700 space-y-1">
               {keyFeatures.length > 0 ? (
                 keyFeatures.map((feature: string, idx: number) => (
                   <li key={feature + idx}>{feature}</li>
